@@ -11,9 +11,9 @@ namespace assignment {
       return n;
     }
 
-    // Напишите здесь свой код ...
+    auto const golden_ratio = (1 + sqrt(5)) / 2;
 
-    return 0;
+    return round((pow(golden_ratio, n) - pow(-golden_ratio, -n)) / (2 * golden_ratio - 1));
   }
 
   int64_t fib_iterative(int n) {
@@ -26,16 +26,20 @@ namespace assignment {
     int64_t fib_prev = 0;
     int64_t fib_curr = 1;
 
-    // Напишите здесь свой код ...
-
-    return 0;
+    for (int i = 1; i <= n; i++) {
+      fib_curr = fib_prev + fib_curr;
+      fib_prev = fib_curr - fib_prev;
+    }
+    return fib_prev;
   }
 
   int64_t fib_recursive(int n) {
 
-    // Напишите здесь свой код ...
+    if (n <= 1) {
+      return n;
+    }
 
-    return 0;
+    return fib_recursive(n - 1) + fib_recursive(n - 2);
   }
 
   int64_t fib_recursive_memoization(int n, std::vector<int64_t>& cache) {
@@ -44,14 +48,11 @@ namespace assignment {
       return cache[n];
     }
 
-    if (cache[n] != -1) {
-      // Напишите здесь свой код ...
-      return 0;
+    if (cache[n] == -1) {
+      cache[n] = fib_recursive_memoization(n - 1, cache) + fib_recursive_memoization(n - 2, cache);
     }
 
-    // Напишите здесь свой код ...
-
-    return 0;
+    return cache[n];
   }
 
   int64_t fib_matrix(int n) {
@@ -59,12 +60,11 @@ namespace assignment {
     if (n <= 1) {
       return n;
     }
-
-    // Напишите здесь свой код ...
-
     // Tip: используйте реализованную функцию matrix_pow
 
-    return 0;
+    Matrix2x2 F0F1 = {{{0, 1}, {0, 0}}};
+    Matrix2x2 res = matrix_multiply(F0F1, matrix_power(FibMatrix, n));
+    return res[0][0];
   }
 
 }  // namespace assignment
